@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "addr_register",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/addr_register.py", 
+            "args": ["--vlanName", "main", "--addrName", "north.cymcore.com"], 
+            "console": "integratedTerminal"
+        }
+    ]
+}
