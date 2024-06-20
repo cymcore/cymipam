@@ -1,13 +1,13 @@
 #!/bin/bash
 
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 <ipam command>"
+  echo "valid ipam py file required as first argument"
   exit 1
 fi
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd $SCRIPT_DIR
-
-command=$(basename $1 .py)
-
-bash -c $command
+if [ -f ./$1 ]; then
+  eval "exec $@"
+else
+  echo "need first argument to be a valid ipam py file"
+  exit 1
+fi
