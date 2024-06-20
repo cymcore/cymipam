@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
+if [ $# -lt 1 ]; then
   echo "valid ipam py file required as first argument"
   exit 1
 fi
