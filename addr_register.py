@@ -55,9 +55,11 @@ def GetAddrIpListByVlanId(vlan_id):
         con.close()
         return addr_ip_list
  
-def GetNextOpenAddrIp(currentAddrIpList,vlanId):
+def GetNextOpenAddrIp(currentAddrIpList,vlanNet):
+    splitNet=vlanNet.split('.')
+    netSegment = ".".join(map(str, splitNet[:3]))
     for i in range(1, 255):
-        addr = f"192.168.{vlanId}.{i}"
+        addr = f"{netSegment}.{i}"
         if addr not in currentAddrIpList:
             return addr
     return None
@@ -75,16 +77,18 @@ def main():
     args = parser.parse_args()
 
     vlanId = GetVlanRecordByVlanName(args.vlanName)
+
     if vlanId is None:
         print(f"Vlan {args.vlanName} does not exist")
         sys.exit(1)
     else:
         vlanId = GetVlanRecordByVlanName(args.vlanName)['vlan_id']
+        vlanNet = GetVlanRecordByVlanName(args.vlanName)['vlan_network']
 
     record=GetRecordByVlanNameAndAddrName(args.vlanName, args.addrName)
     if record is None:
         currentAddrIpList = GetAddrIpListByVlanId(vlanId)
-        nextAddrIp = GetNextOpenAddrIp(currentAddrIpList, vlanId)
+        nextAddrIp = GetNextOpenAddrIp(currentAddrIpList, vlanNet)
 
         if nextAddrIp is None:
             print("No more available addresses exist in this vlan.")
