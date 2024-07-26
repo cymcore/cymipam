@@ -71,14 +71,16 @@ def main():
 
     if args.addrIp and AddrExistsByIp(args.addrIp):
         addr = RemoveAddrByAddr(args.addrIp)
+        print("addr removed successfully")
         sys.exit(0)
 
     if args.addrName and AddrExistsByName(args.addrName):
         addr = RemoveAddrByAddrName(args.addrName)
+        print("addr removed successfully")
         sys.exit(0)
 
     print("addr does not exist")
-    sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == '__main__':
